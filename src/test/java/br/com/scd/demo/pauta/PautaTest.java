@@ -25,14 +25,14 @@ public class PautaTest {
 	
 	@Test
 	public void idCannotBeNull() {
-		assertThatThrownBy(() -> new Pauta(null, "subject", Collections.singletonList(new Associado())))
+		assertThatThrownBy(() -> new Pauta(null, "subject", Collections.singletonList(new Associado(1l))))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("id cannot be null");
 	}
 	
 	@Theory
 	public void subjectCannotBeBlank(@FromDataPoints("invalidValues") String subject) {
-		assertThatThrownBy(() -> new Pauta(12l, subject, Collections.singletonList(new Associado())))
+		assertThatThrownBy(() -> new Pauta(12l, subject, Collections.singletonList(new Associado(1l))))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("subject cannot be blank");
 	}
@@ -53,7 +53,7 @@ public class PautaTest {
 	
 	@Test
 	public void shoudCreatePauta() {
-		List<Associado> associateds = Collections.singletonList(new Associado());
+		List<Associado> associateds = Collections.singletonList(new Associado(1l));
 		Pauta pauta = new Pauta(12l, "subject", associateds);
 		
 		assertEquals("subject", pauta.getSubject());

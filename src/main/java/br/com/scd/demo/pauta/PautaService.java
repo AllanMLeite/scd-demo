@@ -12,5 +12,4 @@ public class PautaService {
 	public Pauta save(PautaForInsert pautaForInsert) {
 		return pautaRepository.save(pautaForInsert);
 	}
-
 }
