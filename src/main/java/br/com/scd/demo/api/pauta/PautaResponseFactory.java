@@ -9,6 +9,6 @@ public class PautaResponseFactory {
 	}
 
 	public static PautaResponse getInstance(Pauta pauta) {
-		return new PautaResponse(pauta.getId(), pauta.getSubject(), pauta.getAssociateds());
+		return new PautaResponse(pauta.getId(), pauta.getSubject());
 	}
 }

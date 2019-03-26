@@ -1,4 +1,4 @@
-package br.com.scd.demo.exception;
+package br.com.scd.demo.api.exception;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,7 +33,7 @@ public class RestResponseEntityExceptionHandlerTest {
 				post(PAUTA_URL)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"associateds\":[{\"id\":101}]}"))
+				.content("{}"))
 			.andExpect(status().isBadRequest())
 			.andExpect(content().string(expectedMsg));
 	}

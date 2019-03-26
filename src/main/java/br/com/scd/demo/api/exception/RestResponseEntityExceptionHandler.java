@@ -1,4 +1,4 @@
-package br.com.scd.demo.exception;
+package br.com.scd.demo.api.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -13,6 +13,7 @@ import br.com.scd.demo.pauta.Pauta;
 import br.com.scd.demo.pauta.PautaFactory;
 import br.com.scd.demo.pauta.PautaForInsert;
 import br.com.scd.demo.pauta.PautaService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/pauta/")
@@ -22,6 +23,7 @@ public class PautaApi {
 	private PautaService pautaService;
 	
 	@PostMapping
+	@ApiOperation("Cadastrar pauta")
 	public ResponseEntity<PautaResponse> save(@RequestBody @Valid PautaRequest request) {
 		
 		PautaForInsert pautaForInsert = PautaFactory.getInstance(request);

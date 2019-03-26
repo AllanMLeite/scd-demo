@@ -1,12 +1,9 @@
 package br.com.scd.demo.pauta;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PautaRepository {
-
-	public Pauta save(PautaForInsert pautaForInsert) {
-		throw new UnsupportedOperationException("Not implemented yet");
-	}
+public interface PautaRepository extends CrudRepository<PautaEntity, Long>{
 
 }

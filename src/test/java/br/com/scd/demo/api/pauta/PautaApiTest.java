@@ -7,9 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.scd.demo.associado.Associado;
 import br.com.scd.demo.pauta.Pauta;
 import br.com.scd.demo.pauta.PautaForInsert;
 import br.com.scd.demo.pauta.PautaService;
@@ -45,13 +41,11 @@ public class PautaApiTest {
 	@MockBean
 	private PautaService service;
 
-	private static final List<Associado> ASSOCIATES_EXAMPLE =  Collections.singletonList(new Associado(1l));
-	
 	@Test
 	public void shoudSavePauta() throws Exception {
 
-		PautaForInsert pautaForInsert = new PautaForInsert("subject", ASSOCIATES_EXAMPLE);
-		Pauta pauta = new Pauta(1l, "subject", ASSOCIATES_EXAMPLE);
+		PautaForInsert pautaForInsert = new PautaForInsert("subject");
+		Pauta pauta = new Pauta(1l, "subject");
 		when(service.save(any(PautaForInsert.class))).thenReturn(pauta);
 
 		final String expectedResponse = mapper.writeValueAsString(pauta);
@@ -68,7 +62,7 @@ public class PautaApiTest {
 	public void shouldThrowErrorWhenSubjectHaveInvalidLength() throws Exception {
 
 		String subject = generateStringWithMoreThan100Chars();
-		PautaForInsert pautaForInsert = new PautaForInsert(subject, ASSOCIATES_EXAMPLE);
+		PautaForInsert pautaForInsert = new PautaForInsert(subject);
 
 		mockMvc.perform(
 				post(PAUTA_URL)
@@ -106,31 +100,5 @@ public class PautaApiTest {
 
 	private String generateStringWithMoreThan100Chars() {
 		return RandomStringUtils.randomAlphabetic(101);
-	}
-	
-	@Test
-	public void shouldThrowErrorWhenAssociatedsIsEmpty() throws Exception {
-		String payload = "{\"subject\":\"xyz\", \"associateds\": []}";
-
-		mockMvc.perform(
-				post(PAUTA_URL)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(payload))
-				.andExpect(status().isBadRequest())
-				.andExpect(content().string(containsString("Lista de associados deve ser informada.")));
-	}
-	
-	@Test
-	public void shouldThrowErrorWhenAssociatedIdIsEmpty() throws Exception {
-		String payload = "{\"subject\":\"xyz\", \"associateds\": [{\"id\":null}]}";
-
-		mockMvc.perform(
-				post(PAUTA_URL)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(payload))
-				.andExpect(status().isBadRequest())
-				.andExpect(content().string(containsString("Id do associado deve ser informado.")));
 	}
 }

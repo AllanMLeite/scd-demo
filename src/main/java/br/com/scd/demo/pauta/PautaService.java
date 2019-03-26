@@ -10,6 +10,8 @@ public class PautaService {
 	private PautaRepository pautaRepository;
 	
 	public Pauta save(PautaForInsert pautaForInsert) {
-		return pautaRepository.save(pautaForInsert);
+		PautaEntity pautaEntity = PautaEntityFactory.getInstance(pautaForInsert);
+		pautaEntity = pautaRepository.save(pautaEntity);
+		return PautaFactory.getInstance(pautaEntity);
 	}
 }
