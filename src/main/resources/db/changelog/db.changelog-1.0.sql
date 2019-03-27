@@ -38,3 +38,7 @@ CREATE TABLE session (
   topic_id INTEGER REFERENCES topic(id),
   duration_in_minutes INTEGER
 );
+
+--changeset allanmleite:8
+ALTER TABLE session
+	ADD COLUMN date_added timestamp NULL;
