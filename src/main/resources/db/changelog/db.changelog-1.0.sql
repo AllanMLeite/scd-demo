@@ -42,3 +42,11 @@ CREATE TABLE session (
 --changeset allanmleite:8
 ALTER TABLE session
 	ADD COLUMN date_added timestamp NULL;
+	
+--changeset allanmleite:9
+CREATE TABLE vote (
+  id SERIAL PRIMARY KEY NOT NULL,
+  session_id INTEGER NOT NULL REFERENCES session(id),
+  associated_id INTEGER NULL,
+  vote varchar(20) NOT NULL
+);

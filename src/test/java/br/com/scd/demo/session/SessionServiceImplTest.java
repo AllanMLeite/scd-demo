@@ -64,8 +64,8 @@ public class SessionServiceImplTest {
 
 		SessionForInsert sessionForInsert = new SessionForInsert(1l, 2);
 		TopicEntity topicEntity = new TopicEntity();
-		
 		ReflectionTestUtils.setField(topicEntity, "id", 1l);
+		
 		SessionEntity sessionEntityForInsert = SessionEntityFactory.getInstance(sessionForInsert, topicEntity);
 		
 		SessionEntity sessionEntity = SessionEntityFactory.getInstance(sessionForInsert, topicEntity);
