@@ -3,7 +3,6 @@ package br.com.scd.demo.api.topic;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -18,6 +17,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,7 +31,7 @@ import br.com.scd.demo.topic.TopicService;
 @AutoConfigureMockMvc
 public class TopicApiTest {
 
-	private static final String TOPICURL = "/topic/";
+	private static final String TOPIC_URL = "/topic/";
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -49,11 +50,8 @@ public class TopicApiTest {
 		when(service.save(any(TopicForInsert.class))).thenReturn(topic);
 
 		final String expectedResponse = mapper.writeValueAsString(topic);
-		mockMvc.perform(
-					post(TOPICURL)
-					.accept(MediaType.APPLICATION_JSON)
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(mapper.writeValueAsString(topicForInsert)))
+		String requestBody = mapper.writeValueAsString(topicForInsert);
+		mockMvc.perform(post(requestBody))
 			.andExpect(status().isOk())
 			.andExpect(content().json(expectedResponse));
 	}
@@ -64,8 +62,7 @@ public class TopicApiTest {
 		String subject = generateStringWithMoreThan100Chars();
 		TopicForInsert topicForInsert = new TopicForInsert(subject);
 
-		mockMvc.perform(
-				post(TOPICURL)
+		mockMvc.perform(post(TOPIC_URL)
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(mapper.writeValueAsString(topicForInsert)))
@@ -76,11 +73,7 @@ public class TopicApiTest {
 	@Test
 	public void shouldThrowErrorWhenSubjectIsNull() throws Exception {
 		String payload = "{\"associateds\": [{\"id\":1}]}";
-		mockMvc.perform(
-				post(TOPICURL)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(payload))
+		mockMvc.perform(post(payload))
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string(containsString("Assunto deve ser informado.")));
 	}
@@ -89,16 +82,19 @@ public class TopicApiTest {
 	public void shouldThrowErrorWhenSubjectIsEmpty() throws Exception {
 		String payload = "{\"subject\":\"\", \"associateds\": [{\"id\":1}]}";
 
-		mockMvc.perform(
-				post(TOPICURL)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(payload))
+		mockMvc.perform(post(payload))
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string(containsString("Assunto deve ser informado.")));
 	}
 
 	private String generateStringWithMoreThan100Chars() {
 		return RandomStringUtils.randomAlphabetic(101);
+	}
+	
+	private MockHttpServletRequestBuilder post(String requestBody) {
+		return MockMvcRequestBuilders.post(TOPIC_URL)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(requestBody);
 	}
 }

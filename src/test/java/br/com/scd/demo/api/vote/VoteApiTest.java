@@ -1,4 +1,4 @@
-package br.com.scd.demo.api.session;
+package br.com.scd.demo.api.vote;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,16 +21,17 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.scd.demo.session.Session;
-import br.com.scd.demo.session.SessionForInsert;
-import br.com.scd.demo.session.SessionService;
+import br.com.scd.demo.enums.VoteEnum;
+import br.com.scd.demo.vote.Vote;
+import br.com.scd.demo.vote.VoteForInsert;
+import br.com.scd.demo.vote.VoteService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class SessionApiTest {
+public class VoteApiTest {
 
-	private static final String SESSION_URL = "/session/";
+	private static final String VOTE_URL = "/vote/";
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,44 +40,49 @@ public class SessionApiTest {
 	private ObjectMapper mapper;
 
 	@MockBean
-	private SessionService service;
+	private VoteService service;
 
 	@Test
 	public void shouldSave() throws Exception {
 
-		SessionForInsert sessionForInsert = new SessionForInsert(2l, 3);
-		Session session = new Session(1l, 2l, 3);
-		when(service.save(any(SessionForInsert.class))).thenReturn(session);
+		VoteForInsert voteForInsert = new VoteForInsert(1l, 2l, VoteEnum.SIM);
+		Vote vote = new Vote(3l, 1l, 2l, VoteEnum.SIM);
+		when(service.vote(any(VoteForInsert.class))).thenReturn(vote);
 
-		final String expectedResponse = mapper.writeValueAsString(session);
-		String requestBody = mapper.writeValueAsString(sessionForInsert);
-		mockMvc.perform(post(requestBody))
+		final String expectedResponse = mapper.writeValueAsString(vote);
+		mockMvc.perform(post(mapper.writeValueAsString(voteForInsert)))
 			.andExpect(status().isOk())
 			.andExpect(content().json(expectedResponse));
 	}
 
 	@Test
-	public void shouldThrowErrorWhenTopicIdIsNull() throws Exception {
-		String payload = "{\"topicId\": null}";
+	public void shouldThrowErrorWhenSessionIdIsNull() throws Exception {
+		String payload = "{\"sessionId\": null, \"associatedId\": 12, \"vote\": \"SIM\"}";
 		mockMvc.perform(post(payload))
 				.andExpect(status().isBadRequest())
-				.andExpect(content().string(containsString("Id da pauta deve ser informado.")));
+				.andExpect(content().string(containsString("Id da sessao deve ser informado.")));
 	}
 	
 	@Test
-	public void shouldntThrowErrorWhenDurationIsNull() throws Exception {
-		Session session = new Session(1l, 2l, 3);
-		when(service.save(any(SessionForInsert.class))).thenReturn(session);
-		
-		String payload = "{\"topicId\": 12}";
+	public void shouldThrowErrorWhenAssociatedIdIsNull() throws Exception {
+		String payload = "{\"sessionId\": 12, \"associatedId\": null, \"vote\": \"SIM\"}";
 		mockMvc.perform(post(payload))
-				.andExpect(status().isOk());
+				.andExpect(status().isBadRequest())
+				.andExpect(content().string(containsString("Id do associado deve ser informado.")));
 	}
-
+	
+	@Test
+	public void shouldThrowErrorWhenVoteIsNull() throws Exception {
+		String payload = "{\"sessionId\": 12, \"associatedId\": 12, \"vote\": null}";
+		mockMvc.perform(post(payload))
+				.andExpect(status().isBadRequest())
+				.andExpect(content().string(containsString("Voto deve ser informado.")));
+	}
+	
 	private MockHttpServletRequestBuilder post(String payload) {
-		return MockMvcRequestBuilders.post(SESSION_URL)
-			.accept(MediaType.APPLICATION_JSON)
-			.contentType(MediaType.APPLICATION_JSON)
-			.content(payload);
+		return MockMvcRequestBuilders.post(VOTE_URL)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(payload);
 	}
 }
