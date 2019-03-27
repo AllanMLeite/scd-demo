@@ -15,7 +15,7 @@ public class AssociadoTest {
 	}
 
 	@Test
-	public void shoudCreate() {
+	public void shouldCreate() {
 		Associado associado = new Associado(12l);
 		assertEquals("12", associado.getId().toString());
 	}

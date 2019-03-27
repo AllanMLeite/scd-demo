@@ -25,3 +25,16 @@ CREATE TABLE sessao (
   pauta_id INTEGER REFERENCES pauta(id),
   duration_in_minutes INTEGER
 );
+
+--changeset allanmleite:6
+CREATE TABLE IF NOT EXISTS topic (
+  subject varchar(100) NOT NULL,  
+  id  SERIAL PRIMARY KEY NOT NULL
+)
+
+--changeset allanmleite:7
+CREATE TABLE session (
+  id SERIAL PRIMARY KEY NOT NULL,
+  topic_id INTEGER REFERENCES topic(id),
+  duration_in_minutes INTEGER
+);
