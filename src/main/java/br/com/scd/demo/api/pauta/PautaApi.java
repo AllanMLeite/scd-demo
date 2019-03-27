@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.scd.demo.api.pauta.dto.PautaRequest;
+import br.com.scd.demo.api.pauta.dto.PautaResponse;
+import br.com.scd.demo.api.pauta.dto.PautaResponseFactory;
 import br.com.scd.demo.pauta.Pauta;
 import br.com.scd.demo.pauta.PautaFactory;
 import br.com.scd.demo.pauta.PautaForInsert;

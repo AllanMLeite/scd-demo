@@ -1,9 +1,11 @@
-package br.com.scd.demo.api.pauta;
+package br.com.scd.demo.api.pauta.dto;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import br.com.scd.demo.api.pauta.dto.PautaResponse;
+import br.com.scd.demo.api.pauta.dto.PautaResponseFactory;
 import br.com.scd.demo.pauta.Pauta;
 
 public class PautaResponseFactoryTest {

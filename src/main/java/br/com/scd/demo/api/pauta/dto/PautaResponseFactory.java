@@ -1,4 +1,4 @@
-package br.com.scd.demo.api.pauta;
+package br.com.scd.demo.api.pauta.dto;
 
 import br.com.scd.demo.pauta.Pauta;
 

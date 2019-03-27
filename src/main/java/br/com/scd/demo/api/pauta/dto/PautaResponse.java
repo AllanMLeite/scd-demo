@@ -1,4 +1,4 @@
-package br.com.scd.demo.api.pauta;
+package br.com.scd.demo.api.pauta.dto;
 
 import org.springframework.util.Assert;
 

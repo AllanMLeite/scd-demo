@@ -1,4 +1,4 @@
-package br.com.scd.demo.api.pauta;
+package br.com.scd.demo.api.pauta.dto;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
@@ -10,6 +10,8 @@ import org.junit.experimental.theories.FromDataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
+
+import br.com.scd.demo.api.pauta.dto.PautaResponse;
 
 @RunWith(Theories.class)
 public class PautaResponseTest {
