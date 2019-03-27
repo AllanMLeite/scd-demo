@@ -18,3 +18,10 @@ CREATE TABLE IF NOT EXISTS pauta (
   subject varchar(100) NOT NULL,  
   id  SERIAL PRIMARY KEY NOT NULL
 )
+
+--changeset allanmleite:5
+CREATE TABLE sessao (
+  id SERIAL PRIMARY KEY NOT NULL,
+  pauta_id INTEGER REFERENCES pauta(id),
+  duration_in_minutes INTEGER
+);

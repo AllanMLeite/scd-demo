@@ -13,8 +13,8 @@ import br.com.scd.demo.api.sessao.dto.SessaoRequest;
 import br.com.scd.demo.api.sessao.dto.SessaoResponse;
 import br.com.scd.demo.api.sessao.dto.SessaoResponseFactory;
 import br.com.scd.demo.sessao.Sessao;
-import br.com.scd.demo.sessao.SessaoFactory;
 import br.com.scd.demo.sessao.SessaoForInsert;
+import br.com.scd.demo.sessao.SessaoForInsertFactory;
 import br.com.scd.demo.sessao.SessaoService;
 import io.swagger.annotations.ApiOperation;
 
@@ -29,7 +29,7 @@ public class SessaoApi {
 	@ApiOperation("Abrir sessão de votação")
 	public ResponseEntity<SessaoResponse> save(@RequestBody @Valid SessaoRequest request) {
 
-		SessaoForInsert sessaoForInsert = SessaoFactory.getInstance(request);
+		SessaoForInsert sessaoForInsert = SessaoForInsertFactory.getInstance(request);
 
 		Sessao sessao = sessaoService.save(sessaoForInsert);
 

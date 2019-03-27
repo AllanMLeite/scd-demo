@@ -1,12 +1,6 @@
 package br.com.scd.demo.sessao;
 
-import org.springframework.stereotype.Service;
+public interface SessaoService {
 
-@Service
-public class SessaoService {
-
-	public Sessao save(SessaoForInsert sessaoForInsert) {
-		throw new UnsupportedOperationException("Not implemented yet");
-	}
-
+	public Sessao save(SessaoForInsert sessaoForInsert);
 }

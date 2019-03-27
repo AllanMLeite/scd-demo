@@ -13,8 +13,8 @@ import br.com.scd.demo.api.pauta.dto.PautaRequest;
 import br.com.scd.demo.api.pauta.dto.PautaResponse;
 import br.com.scd.demo.api.pauta.dto.PautaResponseFactory;
 import br.com.scd.demo.pauta.Pauta;
-import br.com.scd.demo.pauta.PautaFactory;
 import br.com.scd.demo.pauta.PautaForInsert;
+import br.com.scd.demo.pauta.PautaForInsertFactory;
 import br.com.scd.demo.pauta.PautaService;
 import io.swagger.annotations.ApiOperation;
 
@@ -29,7 +29,7 @@ public class PautaApi {
 	@ApiOperation("Cadastrar pauta")
 	public ResponseEntity<PautaResponse> save(@RequestBody @Valid PautaRequest request) {
 		
-		PautaForInsert pautaForInsert = PautaFactory.getInstance(request);
+		PautaForInsert pautaForInsert = PautaForInsertFactory.getInstance(request);
 		
 		Pauta pauta = pautaService.save(pautaForInsert);
 		

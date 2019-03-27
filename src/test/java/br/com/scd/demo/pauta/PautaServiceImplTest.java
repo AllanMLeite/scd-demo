@@ -12,10 +12,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PautaServiceTest {
+public class PautaServiceImplTest {
 
 	@InjectMocks
-	private PautaService service;
+	private PautaServiceImpl service;
 
 	@Mock
 	private PautaRepository pautaRepository;
