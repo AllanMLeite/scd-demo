@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -43,12 +44,32 @@ public class VoteServiceImplTest {
 	@Test
 	public void shouldThrowErrorWhenAssociatedHasAlreadyVotedInSession() {
 
-		when(sessionRepository.findById(1l)).thenReturn(Optional.of(new SessionEntity()));
+		SessionEntity sessionEntity = new SessionEntity();
+		ReflectionTestUtils.setField(sessionEntity, "dateAdded", LocalDateTime.now());
+		ReflectionTestUtils.setField(sessionEntity, "durationInMinutes", 5);
+
+		when(sessionRepository.findById(1l)).thenReturn(Optional.of(sessionEntity));
 		when(voteRepository.findBySessionIdAndAssociatedId(1l, 2l)).thenReturn(Optional.of(new VoteEntity()));
 
 		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("Cada associado pode votar somente uma vez por pauta.");
+	}
+	
+	@Test
+	public void shouldThrowErrorWhenSessionIsClosed() {
+
+		LocalDateTime dateAdded = LocalDateTime.now().minusMinutes(6l);
+		
+		SessionEntity sessionEntity = new SessionEntity();
+		ReflectionTestUtils.setField(sessionEntity, "dateAdded", dateAdded);
+		ReflectionTestUtils.setField(sessionEntity, "durationInMinutes", 5);
+
+		when(sessionRepository.findById(1l)).thenReturn(Optional.of(sessionEntity));
+
+		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessage(String.format("Sessão encerrada às %s.", dateAdded.plusMinutes(5)));
 	}
 
 	@Test
@@ -59,6 +80,8 @@ public class VoteServiceImplTest {
 
 		SessionEntity sessionEntity = new SessionEntity();
 		ReflectionTestUtils.setField(sessionEntity, "id", 12l);
+		ReflectionTestUtils.setField(sessionEntity, "dateAdded", LocalDateTime.now());
+		ReflectionTestUtils.setField(sessionEntity, "durationInMinutes", 5);
 
 		VoteEntity voteEntityForInsert = VoteEntityFactory.getInstance(sessionEntity, 13l, VoteEnum.SIM);
 

@@ -23,6 +23,8 @@ public class VoteServiceImpl implements VoteService {
 		Optional<SessionEntity> sessionEntity = sessionRepository.findById(voteForInsert.getSessionId());
 
 		checkSessionExists(sessionEntity);
+		
+		checkSessionIsOpen(sessionEntity.get());
 
 		// TODO validar se o associado existe
 
@@ -36,6 +38,12 @@ public class VoteServiceImpl implements VoteService {
 		voteEntity = voteRepository.save(voteEntity);
 		
 		return VoteFactory.getInstance(voteEntity);
+	}
+
+	private void checkSessionIsOpen(SessionEntity sessionEntity) {
+		if(sessionEntity.isClosed()) {
+			throw new IllegalArgumentException(String.format("Sessão encerrada às %s.", sessionEntity.getEndDate()));
+		}
 	}
 
 	private void checkAssociatedHasAlreadyVotedInSession(Optional<VoteEntity> existingVote) {

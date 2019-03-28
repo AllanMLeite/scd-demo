@@ -26,12 +26,20 @@ public class SessionEntity extends BaseEntity {
 
 	@Column(name = "duration_in_minutes")
 	private Integer durationInMinutes;
-	
+
 	@Column(name = "date_added")
 	private LocalDateTime dateAdded;
 
 	@PrePersist
 	public void setCreatedNow() {
 		dateAdded = LocalDateTime.now();
+	}
+
+	public boolean isClosed() {
+		return getEndDate().isBefore(LocalDateTime.now());
+	}
+
+	public LocalDateTime getEndDate() {
+		return dateAdded.plusMinutes(durationInMinutes);
 	}
 }
