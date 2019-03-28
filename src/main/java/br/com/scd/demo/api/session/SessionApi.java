@@ -26,8 +26,8 @@ public class SessionApi {
 	private SessionService sessionService;
 
 	@PostMapping
-	@ApiOperation("Abrir sessão de votação")
-	public ResponseEntity<SessionResponse> save(@RequestBody @Valid SessionRequest request) {
+	@ApiOperation("Abrir sessão de votação.")
+	public ResponseEntity<SessionResponse> openSession(@RequestBody @Valid SessionRequest request) {
 
 		SessionForInsert sessionForInsert = SessionForInsertFactory.getInstance(request);
 

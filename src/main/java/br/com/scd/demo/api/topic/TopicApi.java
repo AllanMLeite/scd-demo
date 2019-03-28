@@ -26,7 +26,7 @@ public class TopicApi {
 	private TopicService topicService;
 	
 	@PostMapping
-	@ApiOperation("Cadastrar pauta")
+	@ApiOperation("Cadastrar pauta de votação.")
 	public ResponseEntity<TopicResponse> save(@RequestBody @Valid TopicRequest request) {
 		
 		TopicForInsert topicForInsert = TopicForInsertFactory.getInstance(request);

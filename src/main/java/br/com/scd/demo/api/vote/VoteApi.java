@@ -26,8 +26,9 @@ public class VoteApi {
 	private VoteService service;
 
 	@PostMapping
-	@ApiOperation("Cadastrar voto")
-	public ResponseEntity<VoteResponse> save(@RequestBody @Valid VoteRequest request) {
+	@ApiOperation("Cadastrar voto. Para consultar os ids dos associados disponíveis "
+			+ "utilize a API de associados. As opcoes disponíveis de voto são: SIM ou NAO.")
+	public ResponseEntity<VoteResponse> vote(@RequestBody @Valid VoteRequest request) {
 
 		VoteForInsert voteForInsert = VoteForInsertFactory.getInstance(request);
 
