@@ -1,5 +1,6 @@
 package br.com.scd.demo.vote;
 
+import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.enums.VoteEnum;
 import br.com.scd.demo.session.SessionEntity;
 
@@ -9,10 +10,10 @@ public class VoteEntityFactory {
 		// prevents instantiation
 	}
 
-	public static VoteEntity getInstance(SessionEntity sessionEntity, Long associatedId, VoteEnum vote) {
+	public static VoteEntity getInstance(SessionEntity sessionEntity, AssociatedEntity associatedEntity, VoteEnum vote) {
 		VoteEntity voteEntity = new VoteEntity();
 		voteEntity.setSession(sessionEntity);
-		voteEntity.setAssociatedId(associatedId);
+		voteEntity.setAssociated(associatedEntity);
 		voteEntity.setVote(vote);
 		return voteEntity;
 	}

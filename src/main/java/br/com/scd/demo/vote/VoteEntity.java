@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.entity.BaseEntity;
 import br.com.scd.demo.enums.VoteEnum;
 import br.com.scd.demo.session.SessionEntity;
@@ -24,8 +25,9 @@ public class VoteEntity extends BaseEntity {
 	@JoinColumn(name = "session_id")
 	private SessionEntity session;
 
-	@Column(name = "associated_id")
-	private Long associatedId;
+	@ManyToOne
+	@JoinColumn(name = "associated_id")
+	private AssociatedEntity associated;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "vote")

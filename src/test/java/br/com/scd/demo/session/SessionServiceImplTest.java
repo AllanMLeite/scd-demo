@@ -80,4 +80,11 @@ public class SessionServiceImplTest {
 		Session expected = new Session(12l, 1l, 2);
 		assertThat(saved).isEqualToComparingFieldByFieldRecursively(expected);
 	}
+
+	@Test
+	public void shouldFindById() {
+		SessionEntity sessionEntity = new SessionEntity();
+		when(sessionRepository.findById(1l)).thenReturn(Optional.of(sessionEntity));
+		assertThat(service.findById(1l).get()).isEqualTo(sessionEntity);
+	}
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.enums.VoteEnum;
 import br.com.scd.demo.session.SessionEntity;
 
@@ -17,7 +18,11 @@ public class VoteFactoryTest {
 
 		VoteEntity voteEntity = new VoteEntity();
 		ReflectionTestUtils.setField(voteEntity, "id", 10l);
-		voteEntity.setAssociatedId(1l);
+		
+		AssociatedEntity associatedEntity = new AssociatedEntity();
+		ReflectionTestUtils.setField(associatedEntity, "id", 1l);
+		
+		voteEntity.setAssociated(associatedEntity);
 		voteEntity.setSession(sessionEntity);
 		voteEntity.setVote(VoteEnum.SIM);
 

@@ -46,4 +46,9 @@ public class SessionServiceImpl implements SessionService {
 			throw new IllegalArgumentException("Id da pauta inexistente.");
 		}
 	}
+
+	@Override
+	public Optional<SessionEntity> findById(Long sessionId) {
+		return sessionRepository.findById(sessionId);
+	}
 }

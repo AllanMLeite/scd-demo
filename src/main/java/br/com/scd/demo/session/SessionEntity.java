@@ -16,14 +16,15 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "session")
 public class SessionEntity extends BaseEntity {
 
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "topic_id")
 	private TopicEntity topic;
 
+	@Setter
 	@Column(name = "duration_in_minutes")
 	private Integer durationInMinutes;
 

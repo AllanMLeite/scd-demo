@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface SessionRepository extends CrudRepository<SessionEntity, Long> {
 
 	Optional<SessionEntity> findByTopicId(Long topicId);
-
 }

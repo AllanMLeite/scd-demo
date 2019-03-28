@@ -7,6 +7,6 @@ public class VoteFactory {
 	}
 
 	public static Vote getInstance(VoteEntity voteEntity) {
-		return new Vote(voteEntity.getId(), voteEntity.getSession().getId(), voteEntity.getAssociatedId(), voteEntity.getVote());
+		return new Vote(voteEntity.getId(), voteEntity.getSession().getId(), voteEntity.getAssociated().getId(), voteEntity.getVote());
 	}
 }
