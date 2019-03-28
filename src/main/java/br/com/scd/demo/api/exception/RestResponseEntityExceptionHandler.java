@@ -3,6 +3,7 @@ package br.com.scd.demo.api.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,8 +28,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	}
 		
 	@ExceptionHandler(InvalidArgumentException.class)
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(InvalidArgumentException ex) {
+	protected ResponseEntity<Object> invalidArgumentException(InvalidArgumentException ex) {
 		String message = ex.getLocalizedMessage();
+		ObjectNode jsonNode = createBody(BAD_REQUEST, message);
+		return ResponseEntity.status(BAD_REQUEST).body(jsonNode);
+	}
+	
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+		String message = ex.getRootCause().getMessage();
 		ObjectNode jsonNode = createBody(BAD_REQUEST, message);
 		return ResponseEntity.status(BAD_REQUEST).body(jsonNode);
 	}

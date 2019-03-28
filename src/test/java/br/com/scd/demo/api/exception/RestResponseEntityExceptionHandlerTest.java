@@ -27,6 +27,8 @@ import br.com.scd.demo.topic.TopicService;
 @AutoConfigureMockMvc
 public class RestResponseEntityExceptionHandlerTest {
 
+	private static final String VOTE_URL = "/vote/";
+
 	private static final String TOPIC_URL = "/topic/";
 
 	@Autowired
@@ -52,6 +54,16 @@ public class RestResponseEntityExceptionHandlerTest {
 
 		mockMvc.perform(post(TOPIC_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
 				.content("{\"subject\":\"123\"}")).andExpect(status().isBadRequest())
+				.andExpect(content().string(containsString(expectedMsg)));
+	}
+	
+	@Test
+	public void shouldHandleHttpMessageNotReadable() throws Exception {
+
+		String expectedMsg = "Voto invalido: xxyy";
+
+		mockMvc.perform(post(VOTE_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+				.content("{\"sessionId\":123, \"associatedId\":12, \"vote\":\"xxyy\"}")).andExpect(status().isBadRequest())
 				.andExpect(content().string(containsString(expectedMsg)));
 	}
 }
