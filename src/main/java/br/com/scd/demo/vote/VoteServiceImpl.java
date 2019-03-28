@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.associated.AssociatedService;
+import br.com.scd.demo.exception.AssociatedDoesntExistsException;
+import br.com.scd.demo.exception.AssociatedHasAlreadyVotedInSessionException;
+import br.com.scd.demo.exception.SessionClosedException;
+import br.com.scd.demo.exception.SessionDoesnExistsException;
 import br.com.scd.demo.session.SessionEntity;
 import br.com.scd.demo.session.SessionService;
 
@@ -56,25 +60,25 @@ public class VoteServiceImpl implements VoteService {
 
 	private void checkAssociatedExists(Optional<AssociatedEntity> associatedEntity) {
 		if (!associatedEntity.isPresent()) {
-			throw new IllegalArgumentException("Id do associado inexistente.");
+			throw new AssociatedDoesntExistsException();
 		}
 	}
 
 	private void checkSessionIsOpen(SessionEntity sessionEntity) {
 		if(sessionEntity.isClosed()) {
-			throw new IllegalArgumentException(String.format("Sessão encerrada às %s.", sessionEntity.getEndDate()));
+			throw new SessionClosedException(sessionEntity.getEndDate());
 		}
 	}
 
 	private void checkAssociatedHasAlreadyVotedInSession(Optional<VoteEntity> existingVote) {
 		if (existingVote.isPresent()) {
-			throw new IllegalArgumentException("Cada associado pode votar somente uma vez por pauta.");
+			throw new AssociatedHasAlreadyVotedInSessionException();
 		}
 	}
 
 	private void checkSessionExists(Optional<SessionEntity> sessionEntity) {
 		if (!sessionEntity.isPresent()) {
-			throw new IllegalArgumentException("Id da sessão inexistente.");
+			throw new SessionDoesnExistsException();
 		}
 	}
 }

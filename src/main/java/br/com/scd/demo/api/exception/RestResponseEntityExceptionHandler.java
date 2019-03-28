@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import br.com.scd.demo.exception.InvalidArgumentException;
+
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -24,8 +26,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		return ResponseEntity.status(status).body(jsonNode);
 	}
 		
-	@ExceptionHandler(IllegalArgumentException.class)
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(IllegalArgumentException ex) {
+	@ExceptionHandler(InvalidArgumentException.class)
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(InvalidArgumentException ex) {
 		String message = ex.getLocalizedMessage();
 		ObjectNode jsonNode = createBody(BAD_REQUEST, message);
 		return ResponseEntity.status(BAD_REQUEST).body(jsonNode);

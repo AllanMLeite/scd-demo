@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import br.com.scd.demo.exception.SessionAlreadyOpenedException;
+import br.com.scd.demo.exception.TopicDoesntExistsException;
 import br.com.scd.demo.session.Session;
 import br.com.scd.demo.session.SessionEntity;
 import br.com.scd.demo.session.SessionEntityFactory;
@@ -41,7 +43,7 @@ public class SessionServiceImplTest {
 		when(topicRepository.findById(1l)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> service.save(new SessionForInsert(1l, 2)))
-			.isInstanceOf(IllegalArgumentException.class)
+			.isInstanceOf(TopicDoesntExistsException.class)
 			.hasMessage("Id da pauta inexistente.");
 	}
 	
@@ -55,7 +57,7 @@ public class SessionServiceImplTest {
 		when(sessionRepository.findByTopicId(1l)).thenReturn(Optional.of(sessionEntityForInsert));
 
 		assertThatThrownBy(() -> service.save(sessionForInsert))
-			.isInstanceOf(IllegalArgumentException.class)
+			.isInstanceOf(SessionAlreadyOpenedException.class)
 			.hasMessage("Sessão já iniciada para a pauta informada.");
 	}
 

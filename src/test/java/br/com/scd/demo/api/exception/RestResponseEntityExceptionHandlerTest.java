@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import br.com.scd.demo.exception.InvalidArgumentException;
 import br.com.scd.demo.topic.TopicForInsert;
 import br.com.scd.demo.topic.TopicService;
 
@@ -44,10 +45,10 @@ public class RestResponseEntityExceptionHandlerTest {
 	}
 
 	@Test
-	public void shouldHandleIllegalArgumentException() throws Exception {
+	public void shouldHandleInvalidArgumentException() throws Exception {
 
 		String expectedMsg = "Exception xyz";
-		when(topicService.save(any(TopicForInsert.class))).thenThrow(new IllegalArgumentException(expectedMsg));
+		when(topicService.save(any(TopicForInsert.class))).thenThrow(new InvalidArgumentException(expectedMsg));
 
 		mockMvc.perform(post(TOPIC_URL).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
 				.content("{\"subject\":\"123\"}")).andExpect(status().isBadRequest())

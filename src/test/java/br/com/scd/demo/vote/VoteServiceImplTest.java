@@ -18,6 +18,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.associated.AssociatedService;
 import br.com.scd.demo.enums.VoteEnum;
+import br.com.scd.demo.exception.AssociatedDoesntExistsException;
+import br.com.scd.demo.exception.AssociatedHasAlreadyVotedInSessionException;
+import br.com.scd.demo.exception.SessionClosedException;
+import br.com.scd.demo.exception.SessionDoesnExistsException;
 import br.com.scd.demo.session.SessionEntity;
 import br.com.scd.demo.session.SessionService;
 import br.com.scd.demo.topic.TopicEntity;
@@ -43,7 +47,7 @@ public class VoteServiceImplTest {
 		when(sessionService.findById(1l)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
-				.isInstanceOf(IllegalArgumentException.class).hasMessage("Id da sessão inexistente.");
+				.isInstanceOf(SessionDoesnExistsException.class).hasMessage("Id da sessão inexistente.");
 	}
 	
 	@Test
@@ -57,7 +61,7 @@ public class VoteServiceImplTest {
 		when(associatedService.findById(2l)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
-				.isInstanceOf(IllegalArgumentException.class).hasMessage("Id do associado inexistente.");
+				.isInstanceOf(AssociatedDoesntExistsException.class).hasMessage("Id do associado inexistente.");
 	}
 
 	@Test
@@ -73,7 +77,7 @@ public class VoteServiceImplTest {
 		
 		
 		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(AssociatedHasAlreadyVotedInSessionException.class)
 				.hasMessage("Cada associado pode votar somente uma vez por pauta.");
 	}
 	
@@ -89,7 +93,7 @@ public class VoteServiceImplTest {
 		when(sessionService.findById(1l)).thenReturn(Optional.of(sessionEntity));
 
 		assertThatThrownBy(() -> service.vote(new VoteForInsert(1l, 2l, VoteEnum.NAO)))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(SessionClosedException.class)
 				.hasMessage(String.format("Sessão encerrada às %s.", dateAdded.plusMinutes(5)));
 	}
 

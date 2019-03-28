@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.scd.demo.exception.SessionAlreadyOpenedException;
+import br.com.scd.demo.exception.TopicDoesntExistsException;
 import br.com.scd.demo.topic.TopicEntity;
 import br.com.scd.demo.topic.TopicRepository;
 
@@ -37,13 +39,13 @@ public class SessionServiceImpl implements SessionService {
 		Optional<SessionEntity> sessionEntity = sessionRepository.findByTopicId(topicId);
 		
 		if(sessionEntity.isPresent()) {
-			throw new IllegalArgumentException("Sessão já iniciada para a pauta informada.");
+			throw new SessionAlreadyOpenedException();
 		}
 	}
 
 	private void checkTopicExists(Optional<TopicEntity> topicEntity) {
 		if (!topicEntity.isPresent()) {
-			throw new IllegalArgumentException("Id da pauta inexistente.");
+			throw new TopicDoesntExistsException();
 		}
 	}
 
