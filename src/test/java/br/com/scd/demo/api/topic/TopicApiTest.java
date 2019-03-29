@@ -6,6 +6,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +26,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.scd.demo.enums.StatusEnum;
+import br.com.scd.demo.enums.TopicResultEnum;
+import br.com.scd.demo.enums.VoteEnum;
 import br.com.scd.demo.topic.Topic;
 import br.com.scd.demo.topic.TopicForInsert;
+import br.com.scd.demo.topic.TopicResult;
 import br.com.scd.demo.topic.TopicService;
 
 @RunWith(SpringRunner.class)
@@ -32,7 +40,7 @@ import br.com.scd.demo.topic.TopicService;
 public class TopicApiTest {
 
 	private static final String TOPIC_URL = "/topic/";
-
+	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -85,6 +93,36 @@ public class TopicApiTest {
 		mockMvc.perform(post(payload))
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string(containsString("Assunto deve ser informado.")));
+	}
+	
+	@Test
+	public void shouldGetTopicResult() throws Exception {
+
+		HashMap<VoteEnum, Long> totalVotes = new HashMap<>();
+		totalVotes.put(VoteEnum.SIM, 1l);
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		TopicResult topic = new TopicResult.Builder()
+				.addId(1l)
+				.addSubject("subject")
+				.addStatus(StatusEnum.ABERTA)
+				.addTotalVotesMap(totalVotes)
+				.addVoteSessionResult(TopicResultEnum.APROVADA)
+				.addStartDate(now)
+				.addEndDate(now.plusMinutes(10l))
+				.build();
+		
+		when(service.findByIdWithSessionResult(1l)).thenReturn(topic);
+
+		final String expectedResponse = mapper.writeValueAsString(topic);
+		String requestBody = mapper.writeValueAsString(topic);
+		mockMvc.perform(MockMvcRequestBuilders.get(new URI(TOPIC_URL+"result/1"))
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(requestBody))
+			.andExpect(status().isOk())
+			.andExpect(content().json(expectedResponse));
 	}
 
 	private String generateStringWithMoreThan100Chars() {

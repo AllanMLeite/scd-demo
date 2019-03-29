@@ -35,15 +35,18 @@ public class VoteServiceImpl implements VoteService {
 
 		Optional<AssociatedEntity> associatedEntity = associatedService.findById(voteForInsert.getAssociatedId());
 
-		checkAssociatedExists(associatedEntity);
-		
-		checkAssociatedHasAlreadyVotedInSession(voteForInsert);
+		checkAssociated(voteForInsert, associatedEntity);
 
 		VoteEntity voteEntity = VoteEntityFactory.getInstance(sessionEntity.get(), associatedEntity.get(), voteForInsert.getVote());
 		
 		voteEntity = voteRepository.save(voteEntity);
 		
 		return VoteFactory.getInstance(voteEntity);
+	}
+
+	private void checkAssociated(VoteForInsert voteForInsert, Optional<AssociatedEntity> associatedEntity) {
+		checkAssociatedExists(associatedEntity);
+		checkAssociatedHasAlreadyVotedInSession(voteForInsert);
 	}
 
 	private void checkAssociatedHasAlreadyVotedInSession(VoteForInsert voteForInsert) {

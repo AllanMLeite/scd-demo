@@ -5,7 +5,7 @@ import br.com.scd.demo.vote.Vote;
 public class VoteResponseFactory {
 
 	private VoteResponseFactory() {
-		// TODO prevents instantiation
+		// prevents instantiation
 	}
 
 	public static VoteResponse getInstance(Vote vote) {

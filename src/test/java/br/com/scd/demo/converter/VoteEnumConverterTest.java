@@ -16,7 +16,7 @@ public class VoteEnumConverterTest {
 	public void shouldThrowExceptionWhenVoteUnknown() {
 		assertThatThrownBy(() -> converter.convert("unknown"))
 			.isInstanceOf(VoteNotFoundException.class)
-			.hasMessage("Voto não encontrado: unknown");		
+			.hasMessage("Voto invalido: unknown");		
 	}
 	
 	@Test

@@ -24,8 +24,7 @@ cache:
 
 script: ./gradlew sonarqube -Dsonar.projectKey=AllanMLeite_scd-demo -Dsonar.organization=allanmleite-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=67fcef9a42fc64f54051404ac52232a24dca2c73
 
-after_success:
-  - deploy:
-      provider: heroku
-      api_key:
-        secure: 6c7d38bf-b556-436d-95e1-032327014f64
+deploy:
+  provider: heroku
+  api_key:
+    secure: 6c7d38bf-b556-436d-95e1-032327014f64
