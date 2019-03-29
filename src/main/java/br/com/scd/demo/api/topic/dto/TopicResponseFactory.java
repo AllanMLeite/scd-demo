@@ -2,10 +2,10 @@ package br.com.scd.demo.api.topic.dto;
 
 import br.com.scd.demo.topic.Topic;
 
-public class TopicResponseFactory {
+public final class TopicResponseFactory {
 
 	private TopicResponseFactory() {
-		// prevents instantiation
+		
 	}
 
 	public static TopicResponse getInstance(Topic topic) {

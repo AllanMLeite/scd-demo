@@ -1,9 +1,9 @@
 package br.com.scd.demo.topic;
 
-public class TopicFactory {
+public final class TopicFactory {
 
 	private TopicFactory() {
-		// prevents instantiation
+
 	}
 
 	public static Topic getInstance(TopicEntity topicEntity) {

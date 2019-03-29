@@ -11,7 +11,7 @@ public class AssociatedResponseFactoryTest {
 	@Test
 	public void shouldCreate() {
 		Associated associated = new Associated(12l, "01234567890");
-		AssociatedResponse associatedResponse = AssociatedResposeFactory.getInstance(associated);
+		AssociatedResponse associatedResponse = AssociatedResponseFactory.getInstance(associated);
 		
 		assertEquals("12", associatedResponse.getId().toString());
 		assertEquals("01234567890", associatedResponse.getCpf().toString());

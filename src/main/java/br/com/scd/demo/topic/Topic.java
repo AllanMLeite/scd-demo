@@ -4,12 +4,11 @@ import org.springframework.util.Assert;
 
 import lombok.Getter;
 
+@Getter
 public class Topic {
 
-	@Getter
 	private final Long id;
 	
-	@Getter
 	private final String subject;
 	
 	public Topic(Long id, String subject) {
@@ -20,5 +19,4 @@ public class Topic {
 		this.id = id;
 		this.subject = subject;
 	}
-	
 }

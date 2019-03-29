@@ -14,10 +14,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AssociatedServiceImplTest {
+public class AssociatedServiceTest {
 
 	@InjectMocks
-	private AssociatedServiceImpl service;
+	private AssociatedService service;
 
 	@Mock
 	private AssociatedRepository associatedRepository;

@@ -24,7 +24,7 @@ import br.com.scd.demo.topic.TopicService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/topic")
+@RequestMapping("/topics")
 public class TopicApi {
 
 	@Autowired

@@ -2,10 +2,10 @@ package br.com.scd.demo.session;
 
 import br.com.scd.demo.topic.TopicEntity;
 
-public class SessionEntityFactory {
+public final class SessionEntityFactory {
 
 	private SessionEntityFactory() {
-		// prevents instantiation
+		
 	}
 	
 	public static SessionEntity getInstance(SessionForInsert sessionForInsert, TopicEntity topicEntity) {
@@ -14,5 +14,4 @@ public class SessionEntityFactory {
 		sessionEntity.setDurationInMinutes(sessionForInsert.getDurationInMinutes());
 		return sessionEntity;
 	}
-
 }

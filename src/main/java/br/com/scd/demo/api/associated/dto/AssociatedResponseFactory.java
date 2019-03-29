@@ -2,10 +2,10 @@ package br.com.scd.demo.api.associated.dto;
 
 import br.com.scd.demo.associated.Associated;
 
-public class AssociatedResposeFactory {
+public final class AssociatedResponseFactory {
 
-	private AssociatedResposeFactory() {
-		// prevents instantiation
+	private AssociatedResponseFactory() {
+
 	}
 	
 	public static AssociatedResponse getInstance(Associated associated) {

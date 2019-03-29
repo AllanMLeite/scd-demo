@@ -28,7 +28,7 @@ public class TopicResult {
 	private TopicResultEnum voteSessionResult;
 
 	private TopicResult() {
-		// prevents instantiation
+
 	}
 
 	public static final class Builder {

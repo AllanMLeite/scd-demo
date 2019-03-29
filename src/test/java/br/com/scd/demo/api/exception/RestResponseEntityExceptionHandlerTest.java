@@ -27,9 +27,9 @@ import br.com.scd.demo.topic.TopicService;
 @AutoConfigureMockMvc
 public class RestResponseEntityExceptionHandlerTest {
 
-	private static final String VOTE_URL = "/vote/";
+	private static final String VOTE_URL = "/votes";
 
-	private static final String TOPIC_URL = "/topic/";
+	private static final String TOPIC_URL = "/topics";
 
 	@Autowired
 	private MockMvc mockMvc;

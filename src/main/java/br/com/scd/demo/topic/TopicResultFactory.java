@@ -7,10 +7,10 @@ import java.util.Map;
 import br.com.scd.demo.enums.TopicResultEnum;
 import br.com.scd.demo.enums.VoteEnum;
 
-public class TopicResultFactory {
+public final class TopicResultFactory {
 
 	private TopicResultFactory() {
-		// prevents instantiation
+
 	}
 
 	public static TopicResult getInstance(TopicEntity topicEntity) {

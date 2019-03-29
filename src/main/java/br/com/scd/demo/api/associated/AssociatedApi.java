@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.scd.demo.api.associated.dto.AssociatedResponse;
-import br.com.scd.demo.api.associated.dto.AssociatedResposeFactory;
+import br.com.scd.demo.api.associated.dto.AssociatedResponseFactory;
 import br.com.scd.demo.associated.Associated;
 import br.com.scd.demo.associated.AssociatedService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/associated/")
+@RequestMapping("/associateds")
 public class AssociatedApi {
 
 	@Autowired
@@ -29,7 +29,7 @@ public class AssociatedApi {
 		List<Associated> associateds = associatedService.findAll();
 
 		List<AssociatedResponse> response = associateds.stream()
-				.map(AssociatedResposeFactory::getInstance)
+				.map(AssociatedResponseFactory::getInstance)
 				.collect(Collectors.toList());
 		
 		return ResponseEntity.ok(response);

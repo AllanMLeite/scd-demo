@@ -30,7 +30,7 @@ import br.com.scd.demo.session.SessionService;
 @AutoConfigureMockMvc
 public class SessionApiTest {
 
-	private static final String SESSION_URL = "/session/";
+	private static final String SESSION_URL = "/sessions";
 
 	@Autowired
 	private MockMvc mockMvc;

@@ -4,12 +4,11 @@ import org.springframework.util.Assert;
 
 import lombok.Getter;
 
+@Getter
 public class Associated {
 
-	@Getter
 	private Long id;
 	
-	@Getter
 	private String cpf;
 
 	public Associated(Long id, String cpf) {

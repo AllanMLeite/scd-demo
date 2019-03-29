@@ -1,8 +1,39 @@
 package br.com.scd.demo.topic;
 
-public interface TopicService {
+import java.util.Optional;
 
-	public Topic save(TopicForInsert topicForInsert);
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.scd.demo.exception.TopicDoesntExistsException;
+
+@Service
+public class TopicService {
+
+	@Autowired
+	private TopicRepository topicRepository;
 	
-	public TopicResult findByIdWithSessionResult(Long topicId);
+	public Topic save(TopicForInsert topicForInsert) {
+		
+		TopicEntity topicEntity = TopicEntityFactory.getInstance(topicForInsert);
+		
+		topicEntity = topicRepository.save(topicEntity);
+		
+		return TopicFactory.getInstance(topicEntity);
+	}
+
+	public TopicResult findByIdWithSessionResult(Long topicId) {
+		
+		Optional<TopicEntity> topicEntity = topicRepository.findByIdWithSessionResult(topicId);
+		
+		checkTopicExists(topicEntity);
+		
+		return TopicResultFactory.getInstance(topicEntity.get());
+	}
+
+	private void checkTopicExists(Optional<TopicEntity> topicEntity) {
+		if(!topicEntity.isPresent()) {
+			throw new TopicDoesntExistsException();
+		}
+	}
 }

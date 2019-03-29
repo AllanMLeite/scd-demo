@@ -4,16 +4,14 @@ import org.springframework.util.Assert;
 
 import lombok.Getter;
 
+@Getter
 public class SessionResponse {
 
-	@Getter
-	private Long id;
+	private final Long id;
 
-	@Getter
-	private Long topicId;
+	private final Long topicId;
 
-	@Getter
-	private Integer durationInMinutes;
+	private final Integer durationInMinutes;
 
 	public SessionResponse(Long id, Long topicId, Integer durationInMinutes) {
 		

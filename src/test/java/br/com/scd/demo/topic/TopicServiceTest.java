@@ -25,10 +25,10 @@ import br.com.scd.demo.session.SessionEntity;
 import br.com.scd.demo.vote.VoteEntity;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TopicServiceImplTest {
+public class TopicServiceTest {
 
 	@InjectMocks
-	private TopicServiceImpl service;
+	private TopicService service;
 
 	@Mock
 	private TopicRepository topicRepository;

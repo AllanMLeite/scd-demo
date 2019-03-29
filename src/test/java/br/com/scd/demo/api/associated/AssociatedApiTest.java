@@ -29,7 +29,7 @@ import br.com.scd.demo.associated.AssociatedService;
 @AutoConfigureMockMvc
 public class AssociatedApiTest {
 
-	private static final String URL = "/associated/";
+	private static final String URL = "/associateds";
 
 	@Autowired
 	private MockMvc mockMvc;

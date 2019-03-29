@@ -1,9 +1,9 @@
 package br.com.scd.demo.vote;
 
-public class VoteFactory {
+public final class VoteFactory {
 
 	private VoteFactory() {
-		// prevents instantiation
+
 	}
 
 	public static Vote getInstance(VoteEntity voteEntity) {

@@ -19,7 +19,7 @@ import br.com.scd.demo.session.SessionService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/session/")
+@RequestMapping("/sessions")
 public class SessionApi {
 
 	@Autowired

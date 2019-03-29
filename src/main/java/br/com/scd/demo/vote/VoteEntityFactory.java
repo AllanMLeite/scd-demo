@@ -4,10 +4,10 @@ import br.com.scd.demo.associated.AssociatedEntity;
 import br.com.scd.demo.enums.VoteEnum;
 import br.com.scd.demo.session.SessionEntity;
 
-public class VoteEntityFactory {
+public final class VoteEntityFactory {
 
 	private VoteEntityFactory() {
-		// prevents instantiation
+
 	}
 
 	public static VoteEntity getInstance(SessionEntity sessionEntity, AssociatedEntity associatedEntity, VoteEnum vote) {

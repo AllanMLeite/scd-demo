@@ -2,10 +2,10 @@ package br.com.scd.demo.vote;
 
 import br.com.scd.demo.api.vote.dto.VoteRequest;
 
-public class VoteForInsertFactory {
+public final class VoteForInsertFactory {
 
 	private VoteForInsertFactory() {
-		// prevents instantiation
+
 	}
 
 	public static VoteForInsert getInstance(VoteRequest request) {

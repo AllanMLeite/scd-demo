@@ -60,7 +60,8 @@ public class SessionEntity extends BaseEntity {
 	}
 
 	public Map<VoteEnum, Long> getTotalVotes() {
-		return getVotes().stream().map(VoteEntity::getVote)
+		return getVotes().stream()
+				.map(VoteEntity::getVote)
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 	}
 
@@ -92,7 +93,11 @@ public class SessionEntity extends BaseEntity {
 	}
 
 	private boolean totalVotesOfEachTypeAreEquals(Map<VoteEnum, Long> totalVotesMap) {
-		return totalVotesMap.entrySet().stream().mapToLong(Map.Entry::getValue).distinct().count() <= 1l;
+		return totalVotesMap.entrySet()
+				.stream()
+				.mapToLong(Map.Entry::getValue)
+				.distinct()
+				.count() <= 1l;
 	}
 
 	private boolean winnerVoteIsYes(Map<VoteEnum, Long> totalVotesMap) {
@@ -100,7 +105,9 @@ public class SessionEntity extends BaseEntity {
 	}
 
 	private VoteEnum getWinnerVote(Map<VoteEnum, Long> totalVotesMap) {
-		Optional<Entry<VoteEnum, Long>> winnerVote = totalVotesMap.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue));
+		Optional<Entry<VoteEnum, Long>> winnerVote = totalVotesMap.entrySet()
+				.stream()
+				.max(Comparator.comparing(Map.Entry::getValue));
 		return winnerVote.isPresent() ? winnerVote.get().getKey() : null;
 	}
 }

@@ -31,7 +31,7 @@ import br.com.scd.demo.vote.VoteService;
 @AutoConfigureMockMvc
 public class VoteApiTest {
 
-	private static final String VOTE_URL = "/vote/";
+	private static final String VOTE_URL = "/votes";
 
 	@Autowired
 	private MockMvc mockMvc;

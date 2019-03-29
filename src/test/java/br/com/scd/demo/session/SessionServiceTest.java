@@ -21,15 +21,15 @@ import br.com.scd.demo.session.SessionEntity;
 import br.com.scd.demo.session.SessionEntityFactory;
 import br.com.scd.demo.session.SessionForInsert;
 import br.com.scd.demo.session.SessionRepository;
-import br.com.scd.demo.session.SessionServiceImpl;
+import br.com.scd.demo.session.SessionService;
 import br.com.scd.demo.topic.TopicEntity;
 import br.com.scd.demo.topic.TopicRepository;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SessionServiceImplTest {
+public class SessionServiceTest {
 
 	@InjectMocks
-	private SessionServiceImpl service;
+	private SessionService service;
 
 	@Mock
 	private TopicRepository topicRepository;

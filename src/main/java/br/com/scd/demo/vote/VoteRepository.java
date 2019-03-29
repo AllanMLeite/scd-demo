@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface VoteRepository extends CrudRepository<VoteEntity, Long> {
 
 	Optional<VoteEntity> findBySessionIdAndAssociatedId(Long sessionId, Long associatedId);
-
 }

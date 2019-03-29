@@ -4,13 +4,12 @@ import org.springframework.util.Assert;
 
 import lombok.Getter;
 
+@Getter
 public class AssociatedResponse {
 
-	@Getter
-	private Long id;
+	private final Long id;
 	
-	@Getter
-	private String cpf;
+	private final String cpf;
 
 	public AssociatedResponse(Long id, String cpf) {
 		

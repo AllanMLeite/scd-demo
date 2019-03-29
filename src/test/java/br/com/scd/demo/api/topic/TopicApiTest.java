@@ -39,7 +39,7 @@ import br.com.scd.demo.topic.TopicService;
 @AutoConfigureMockMvc
 public class TopicApiTest {
 
-	private static final String TOPIC_URL = "/topic/";
+	private static final String TOPIC_URL = "/topics";
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -117,7 +117,7 @@ public class TopicApiTest {
 
 		final String expectedResponse = mapper.writeValueAsString(topic);
 		String requestBody = mapper.writeValueAsString(topic);
-		mockMvc.perform(MockMvcRequestBuilders.get(new URI(TOPIC_URL+"result/1"))
+		mockMvc.perform(MockMvcRequestBuilders.get(new URI(TOPIC_URL+"/result/1"))
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody))

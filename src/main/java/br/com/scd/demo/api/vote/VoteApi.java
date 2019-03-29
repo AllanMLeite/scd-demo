@@ -19,7 +19,7 @@ import br.com.scd.demo.vote.VoteService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/vote/")
+@RequestMapping("/votes")
 public class VoteApi {
 
 	@Autowired
