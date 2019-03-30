@@ -21,7 +21,7 @@ addons:
   sonarcloud:
     organization: "allanmleite-github"
   token:
-    secure: 67fcef9a42fc64f54051404ac52232a24dca2c73
+    secure: $SONARCLOUD_TOKEN
 
 cache:
   directories:
@@ -29,14 +29,14 @@ cache:
   - '$HOME/.gradle'
 
 script:
-- ./gradlew sonarqube -Dsonar.projectKey=AllanMLeite_scd-demo -Dsonar.organization=allanmleite-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=67fcef9a42fc64f54051404ac52232a24dca2c73
-- docker build -t allanmleite/scd-demo .
+- ./gradlew sonarqube -Dsonar.projectKey=AllanMLeite_scd-demo -Dsonar.organization=allanmleite-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_LOGIN
+- docker build -t allanmleite/$HEROKU_APP_NAME .
 - docker tag allanmleite/scd-demo registry.heroku.com/$HEROKU_APP_NAME/web
 
 deploy:
   provider: script
   script:
-    docker push allanmleite/scd-demo;
+    docker push allanmleite/$HEROKU_APP_NAME;
     docker push registry.heroku.com/$HEROKU_APP_NAME/web;
     heroku container:release web --app $HEROKU_APP_NAME
   branch: master
