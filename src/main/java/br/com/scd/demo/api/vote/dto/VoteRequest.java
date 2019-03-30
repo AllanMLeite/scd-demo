@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import br.com.scd.demo.converter.VoteEnumConverter;
 import br.com.scd.demo.enums.VoteEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class VoteRequest {
 
 	@NotNull(message = "Id da sessao deve ser informado.")

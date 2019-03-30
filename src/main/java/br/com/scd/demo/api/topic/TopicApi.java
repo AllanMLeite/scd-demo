@@ -22,7 +22,9 @@ import br.com.scd.demo.topic.TopicForInsertFactory;
 import br.com.scd.demo.topic.TopicResult;
 import br.com.scd.demo.topic.TopicService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/topics")
 public class TopicApi {
@@ -34,11 +36,15 @@ public class TopicApi {
 	@ApiOperation("Cadastrar pauta de votação.")
 	public ResponseEntity<TopicResponse> save(@RequestBody @Valid TopicRequest request) {
 		
+        log.info("Cadastrando pauta de votação: {}", request);
+        
 		TopicForInsert topicForInsert = TopicForInsertFactory.getInstance(request);
 		
 		Topic topic = topicService.save(topicForInsert);
 		
 		TopicResponse response = TopicResponseFactory.getInstance(topic);
+		
+		log.info("Cadastrada pauta de votação: {}", response);
 		
 		return ResponseEntity.ok(response);
 	}
@@ -47,9 +53,13 @@ public class TopicApi {
 	@ApiOperation("Resultado de votos de uma pauta.")
 	public ResponseEntity<TopicResultResponse> getTopicResult(@PathVariable Long topicId) {
 		
+        log.info("Verificando o resultado da pauta de votação id: {}", topicId);
+        
 		TopicResult topicResult = topicService.findByIdWithSessionResult(topicId);
 		
 		TopicResultResponse topicResultResponse = TopicResultResponseFactory.getInstance(topicResult);
+		
+        log.info("Resultado da pauta de votação: {}", topicResultResponse);
 		
 		return ResponseEntity.ok(topicResultResponse);
 	}

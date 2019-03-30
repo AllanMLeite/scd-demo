@@ -17,7 +17,9 @@ import br.com.scd.demo.session.SessionForInsert;
 import br.com.scd.demo.session.SessionForInsertFactory;
 import br.com.scd.demo.session.SessionService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/sessions")
 public class SessionApi {
@@ -29,11 +31,15 @@ public class SessionApi {
 	@ApiOperation("Abrir sessão de votação.")
 	public ResponseEntity<SessionResponse> openSession(@RequestBody @Valid SessionRequest request) {
 
+		log.info("Abrindo sessão de votação: {}", request);
+
 		SessionForInsert sessionForInsert = SessionForInsertFactory.getInstance(request);
 
 		Session session = sessionService.save(sessionForInsert);
 
 		SessionResponse response = SessionResponseFactory.getInstance(session);
+
+		log.info("Sessão de votação aberta: {}", response);
 
 		return ResponseEntity.ok(response);
 	}

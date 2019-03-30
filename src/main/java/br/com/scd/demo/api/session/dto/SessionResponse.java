@@ -3,8 +3,10 @@ package br.com.scd.demo.api.session.dto;
 import org.springframework.util.Assert;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class SessionResponse {
 
 	private final Long id;

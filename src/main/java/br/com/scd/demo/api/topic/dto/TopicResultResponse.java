@@ -9,8 +9,10 @@ import br.com.scd.demo.enums.StatusEnum;
 import br.com.scd.demo.enums.TopicResultEnum;
 import br.com.scd.demo.enums.VoteEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class TopicResultResponse {
 
 	private Long id;

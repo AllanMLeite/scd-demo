@@ -4,8 +4,10 @@ import org.springframework.util.Assert;
 
 import br.com.scd.demo.enums.VoteEnum;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class VoteResponse {
 
 	private Long id;

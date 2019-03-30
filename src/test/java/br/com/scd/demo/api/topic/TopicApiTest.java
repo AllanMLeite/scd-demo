@@ -116,11 +116,7 @@ public class TopicApiTest {
 		when(service.findByIdWithSessionResult(1l)).thenReturn(topic);
 
 		final String expectedResponse = mapper.writeValueAsString(topic);
-		String requestBody = mapper.writeValueAsString(topic);
-		mockMvc.perform(MockMvcRequestBuilders.get(new URI(TOPIC_URL+"/result/1"))
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(requestBody))
+		mockMvc.perform(MockMvcRequestBuilders.get(new URI(TOPIC_URL+"/result/1")))
 			.andExpect(status().isOk())
 			.andExpect(content().json(expectedResponse));
 	}

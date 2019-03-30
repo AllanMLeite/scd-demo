@@ -4,7 +4,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class TopicRequest {
 
 	@Getter

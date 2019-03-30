@@ -17,24 +17,30 @@ import br.com.scd.demo.vote.VoteForInsert;
 import br.com.scd.demo.vote.VoteForInsertFactory;
 import br.com.scd.demo.vote.VoteService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/votes")
 public class VoteApi {
 
 	@Autowired
 	private VoteService service;
-
+	
 	@PostMapping
 	@ApiOperation("Cadastrar voto. Para consultar os ids dos associados disponíveis "
 			+ "utilize a API de associados. As opcoes disponíveis de voto são: SIM ou NAO.")
 	public ResponseEntity<VoteResponse> vote(@RequestBody @Valid VoteRequest request) {
+
+        log.info("Cadastrando voto: {}", request);
 
 		VoteForInsert voteForInsert = VoteForInsertFactory.getInstance(request);
 
 		Vote vote = service.vote(voteForInsert);
 
 		VoteResponse response = VoteResponseFactory.getInstance(vote);
+		
+        log.info("Voto cadastrado: {}", response);
 
 		return ResponseEntity.ok(response);
 	}

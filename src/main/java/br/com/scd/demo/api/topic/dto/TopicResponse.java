@@ -3,13 +3,14 @@ package br.com.scd.demo.api.topic.dto;
 import org.springframework.util.Assert;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
 public class TopicResponse {
 
-	@Getter
 	private final Long id;
 
-	@Getter
 	private final String subject;
 
 	public TopicResponse(Long id, String subject) {
